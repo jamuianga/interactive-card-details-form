@@ -18,6 +18,12 @@ form {
     padding: 10px 15px;
     font-family: 'Space Grotesk', sans-serif;
     font-size: 18px;
+    border: 1px solid hsl(279, 6%, 55%);
+
+    &:focus {
+      border-color: hsl(239.18, 96.08%, 70%);
+      outline: none;
+    }
   }
 
   button {
@@ -27,6 +33,7 @@ form {
     border: none;
     background-color: hsl(278, 68%, 11%);
     color: hsl(0, 0%, 100%);
+    cursor: pointer;
   }
 }
 
@@ -42,12 +49,18 @@ form {
 }
 
 .inline-form-group {
-  // display: flex;
+  display: flex;
+
+  .cvc {
+    width: 152px;
+  }
 }
 
-// .expire-date {
-//   input {
-//     width: 50px;
-//     margin-right: 10px;
-//   }
-// }
+.expire-date {
+  margin-right: 10px;
+
+  input {
+    width: 60px;
+    margin-right: 10px;
+  }
+}
