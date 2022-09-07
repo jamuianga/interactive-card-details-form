@@ -11,7 +11,7 @@ function App() {
           <div className="card-details">
             <div className="number">0000 0000 0000 0000 0000</div>
             <div className="name-date">
-              <div className="name">John Doe</div>
+              <div className="name">Jane Appleseed</div>
               <div className="date">00/00</div>
             </div>
           </div>
