@@ -9,7 +9,6 @@ body {
 }
 
 .wrapper {
-  background-color: aqua;
   max-width: 1440px;
   height: 100vh;
   margin: 0 auto;
@@ -39,11 +38,11 @@ body {
 
     .number {
       margin-bottom: 20px;
-      font-size: 22px;
+      font-size: 26px;
     }
 
     .name-date {
-      font-size: 14px;
+      font-size: 16px;
       display: flex;
       justify-content: space-between;
     }
@@ -73,15 +72,21 @@ body {
     display: flex;
     flex-direction: column;
     justify-content: center;
+
+    .card-front {
+      margin-bottom: 40px;
+      margin-left: 205px;
+    }
+
+    .card-back {
+      margin-left: 280px;
+    }
   }
 
-  .card-front {
-    margin-bottom: 40px;
-    margin-left: 205px;
-  }
-
-  .card-back {
-    margin-left: 280px;
+  .right-panel{
+    width: 100%;
+    display: flex;
+    align-items: center;
   }
 }
 

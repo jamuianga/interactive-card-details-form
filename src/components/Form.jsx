@@ -1,10 +1,11 @@
 import React from 'react';
+import './Form.scss';
 
 function Form() {
   return (
     <form>
       <div className="form-group">
-        <label htmlFor="">Cardholder name</label>
+        <label>Cardholder name</label>
         <input type="text" placeholder="e.g. Jane Appleseed" />
         <small className="error-msg"></small>
       </div>
@@ -16,9 +17,9 @@ function Form() {
       <div className="inline-form-group">
         <div className="form-group">
           <label htmlFor="">Exp. Date (mm/yy)</label>
-          <div className="inline-input">
-            <input type="text" name="" id="" placeholder="MM" />
-            <input type="text" name="" id="" placeholder="YY" />
+          <div className="inline-input expire-date">
+            <input type="text" placeholder="MM" maxLength={2}/>
+            <input type="text" placeholder="YY" maxLength={2}/>
           </div>
           <small className="error-msg"></small>
         </div>

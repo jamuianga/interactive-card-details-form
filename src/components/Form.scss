@@ -1,0 +1,53 @@
+form {
+  width: 400px;
+  margin: 0 80px 0 auto;
+
+  input,
+  button {
+    border-radius: 8px;
+  }
+
+  label {
+    text-transform: uppercase;
+    margin-bottom: 5px;
+    color: hsl(278, 68%, 11%);
+    font-size: 14px;
+  }
+
+  input {
+    padding: 10px 15px;
+    font-family: 'Space Grotesk', sans-serif;
+    font-size: 18px;
+  }
+
+  button {
+    width: 100%;
+    padding: 15px 0;
+    font-size: 18px;
+    border: none;
+    background-color: hsl(278, 68%, 11%);
+    color: hsl(0, 0%, 100%);
+  }
+}
+
+.form-group {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 20px;
+  position: relative;
+}
+
+.inline-input {
+  display: flex;
+}
+
+.inline-form-group {
+  // display: flex;
+}
+
+// .expire-date {
+//   input {
+//     width: 50px;
+//     margin-right: 10px;
+//   }
+// }
