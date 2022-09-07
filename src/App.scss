@@ -51,7 +51,13 @@ body {
 
 .card-back {
   background-image: url('./assets/bg-card-back.png');
-  color: rebeccapurple;
+  position: relative;
+
+  .cvc {
+    position: absolute;
+    right: 60px;
+    top: 108px;
+  }
 }
 
 @media screen and (min-width: 768px) {

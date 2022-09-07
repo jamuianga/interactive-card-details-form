@@ -16,7 +16,9 @@ function App() {
             </div>
           </div>
         </div>
-        <div className="card card-back">card back</div>
+        <div className="card card-back">
+          <div className="cvc">000</div>
+        </div>
       </div>
       <div className="right-panel">
         <div className="card-form">form</div>
