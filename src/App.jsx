@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import './App.scss';
 import card_logo from './assets/card-logo.svg';
+import Form from './components/Form';
 
 function App() {
   return (
@@ -21,8 +22,7 @@ function App() {
         </div>
       </div>
       <div className="right-panel">
-        <div className="card-form">form</div>
-        <div className="card-form">form submited</div>
+        <Form/>
       </div>
     </div>
   );
