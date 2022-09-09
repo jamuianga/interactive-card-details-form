@@ -4,9 +4,9 @@ import card_logo from './assets/card-logo.svg';
 import Form from './components/Form';
 
 function App() {
-  const [cardholderName, setCardholderName] = useState('Jane Appleseed');
   const [cardInfo, setCardInfo] = useState({
     cardholderName: 'Jane Appleseed',
+    number: '',
     cvc: '000',
   });
 
@@ -16,7 +16,11 @@ function App() {
         <div className="card card-front">
           <img src={card_logo} alt="Card logo" />
           <div className="card-details">
-            <div className="number">0000 0000 0000 0000 0000</div>
+            <div className="number">
+              {cardInfo.number == ''
+                ? '0000 0000 0000 0000 0000'
+                : cardInfo.number}
+            </div>
             <div className="name-date">
               <div className="name">{cardInfo.cardholderName}</div>
               <div className="date">00/00</div>
@@ -28,7 +32,7 @@ function App() {
         </div>
       </div>
       <div className="right-panel">
-        <Form setCardInfo={setCardInfo} />
+        <Form cardInfo={cardInfo} setCardInfo={setCardInfo} />
       </div>
     </div>
   );

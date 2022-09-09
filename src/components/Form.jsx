@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import './Form.scss';
 
-function Form({ setCardInfo }) {
+function Form({ cardInfo, setCardInfo }) {
   const cardholderNameOnChange = (e) => {
     setCardInfo((prevCardInfo) => {
       return {
@@ -20,6 +20,24 @@ function Form({ setCardInfo }) {
     });
   };
 
+  const cardNumberonChange = (e) => {
+    const { value } = e.target;
+
+    const number =
+      value
+        .replace(/\s/g, '')
+        .match(/.{1,4}/g)
+        ?.join(' ')
+        .substr(0, 19) || '';
+
+    setCardInfo((prevCardInfo) => {
+      return {
+        ...prevCardInfo,
+        number,
+      };
+    });
+  };
+
   return (
     <form>
       <div className="form-group">
@@ -33,7 +51,12 @@ function Form({ setCardInfo }) {
       </div>
       <div className="form-group">
         <label htmlFor="">Card number</label>
-        <input type="text" placeholder="e.g. 1234 5678 9123 0000" />
+        <input
+          type="tel"
+          placeholder="e.g. 1234 5678 9123 0000"
+          onChange={cardNumberonChange}
+          value={cardInfo.number}
+        />
         <small className="error-msg"></small>
       </div>
       <div className="inline-form-group">
