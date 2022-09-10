@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import './Form.scss';
 
 function cardHasExpired(month, year) {
@@ -16,7 +16,7 @@ function cardHasExpired(month, year) {
   return false;
 }
 
-function Form({ cardInfo, setCardInfo }) {
+function Form({ cardInfo, setCardInfo, setValidCard }) {
   let formValid = true;
 
   const [errCardholderName, setErrCardholderName] = useState('');
@@ -149,8 +149,7 @@ function Form({ cardInfo, setCardInfo }) {
 
     if (!formValid) return;
 
-    // setValidCard(true);
-    console.log('save');
+    setValidCard(true);
   };
 
   return (

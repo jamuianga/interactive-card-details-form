@@ -2,6 +2,7 @@ import { useState } from 'react';
 import './App.scss';
 import card_logo from './assets/card-logo.svg';
 import Form from './components/Form';
+import Done from './components/Done';
 
 function App() {
   const [cardInfo, setCardInfo] = useState({
@@ -39,9 +40,13 @@ function App() {
       </div>
       <div className="right-panel">
         {(!validCard && (
-          <Form cardInfo={cardInfo} setCardInfo={setCardInfo} />
+          <Form
+            cardInfo={cardInfo}
+            setCardInfo={setCardInfo}
+            setValidCard={setValidCard}
+          />
         )) ||
-          (validCard && <h1>Thank you</h1>)}
+          (validCard && <Done />)}
       </div>
     </div>
   );
