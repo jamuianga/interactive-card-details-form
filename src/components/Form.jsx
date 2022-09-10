@@ -54,16 +54,13 @@ function Form({ cardInfo, setCardInfo }) {
 
     const number =
       value
-        .replace(/\s/g, '')
+        .replace(/\s|\D/g, '')
         .match(/.{1,4}/g)
         ?.join(' ')
         .substr(0, 19) || '';
 
-    setCardInfo((prevCardInfo) => {
-      return {
-        ...prevCardInfo,
-        number,
-      };
+    setCardInfo((prevState) => {
+      return { ...prevState, number };
     });
   };
 
@@ -110,10 +107,6 @@ function Form({ cardInfo, setCardInfo }) {
       formValid = formValid && false;
     } else if (cardInfo.number.replace(/\s/g, '').length < 16) {
       setErrCardNumber('Invalid number');
-      setShowErrCardNumber(true);
-      formValid = formValid && false;
-    } else if (cardInfo.number.replace(/\s/g, '').match(/\D/g) != null) {
-      setErrCardNumber('Wrong format, numbers only');
       setShowErrCardNumber(true);
       formValid = formValid && false;
     }

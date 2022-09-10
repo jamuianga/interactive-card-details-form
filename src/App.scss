@@ -68,6 +68,8 @@ body {
   .left-panel {
     width: 483px;
     background-image: url('./assets/bg-main-desktop.png');
+    background-repeat: no-repeat;
+    background-size: cover;
 
     display: flex;
     flex-direction: column;
