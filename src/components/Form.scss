@@ -16,6 +16,7 @@ form {
 
   input {
     padding: 10px 15px;
+    margin-bottom: 5px;
     font-family: 'Space Grotesk', sans-serif;
     font-size: 18px;
     border: 1px solid hsl(279, 6%, 55%);
@@ -24,6 +25,11 @@ form {
       border-color: hsl(239.18, 96.08%, 70%);
       outline: none;
     }
+  }
+
+  small {
+    color: hsl(0, 100%, 66%);
+    font-size: 12px;
   }
 
   button {
@@ -40,8 +46,12 @@ form {
 .form-group {
   display: flex;
   flex-direction: column;
-  margin-bottom: 20px;
+  margin-bottom: 10px;
   position: relative;
+
+  .danger{
+    border-color: hsl(0, 100%, 66%);
+  }
 }
 
 .inline-input {
