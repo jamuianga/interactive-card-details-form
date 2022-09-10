@@ -12,6 +12,8 @@ function App() {
     yy: '',
   });
 
+  const [validCard, setValidCard] = useState(false);
+
   return (
     <div className="wrapper">
       <div className="left-panel">
@@ -36,7 +38,10 @@ function App() {
         </div>
       </div>
       <div className="right-panel">
-        <Form cardInfo={cardInfo} setCardInfo={setCardInfo} />
+        {(!validCard && (
+          <Form cardInfo={cardInfo} setCardInfo={setCardInfo} />
+        )) ||
+          (validCard && <h1>Thank you</h1>)}
       </div>
     </div>
   );

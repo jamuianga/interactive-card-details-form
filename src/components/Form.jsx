@@ -1,7 +1,24 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import './Form.scss';
 
+function cardHasExpired(month, year) {
+  const date = new Date();
+  const currentMonth = date.getMonth() + 1;
+  const currentYear = Number(date.getFullYear().toString().substring(2));
+  const checkYear = year - currentYear;
+
+  if (checkYear > 3 || checkYear < 0) {
+    return true;
+  } else if (year == currentYear && month < currentMonth) {
+    return true;
+  }
+
+  return false;
+}
+
 function Form({ cardInfo, setCardInfo }) {
+  let formValid = true;
+
   const [errCardholderName, setErrCardholderName] = useState('');
   const [showErrCardholderName, setShowErrCardholderName] = useState(false);
   const [errCardNumber, setErrCardNumber] = useState('');
@@ -15,20 +32,20 @@ function Form({ cardInfo, setCardInfo }) {
   const [showErrCvc, setShowErrCvc] = useState(false);
 
   const cardholderNameOnChange = (e) => {
-    setCardInfo((prevCardInfo) => {
+    setCardInfo((prevState) => {
       return {
-        ...prevCardInfo,
-        cardholderName: e.target.value,
+        ...prevState,
+        cardholderName: e.target.value.toUpperCase(),
       };
     });
   };
 
   const cvcOnChange = (e) => {
-    setCardInfo((prevCardInfo) => {
-      return {
-        ...prevCardInfo,
-        cvc: e.target.value,
-      };
+    const { value } = e.target;
+    const cvc = value.replace(/\s|\D/g, '');
+
+    setCardInfo((prevState) => {
+      return { ...prevState, cvc };
     });
   };
 
@@ -51,20 +68,20 @@ function Form({ cardInfo, setCardInfo }) {
   };
 
   const monthOnChange = (e) => {
-    setCardInfo((prevCardInfo) => {
-      return {
-        ...prevCardInfo,
-        mm: e.target.value,
-      };
+    const { value } = e.target;
+    const mm = value.replace(/\s|\D/g, '');
+
+    setCardInfo((prevState) => {
+      return { ...prevState, mm };
     });
   };
 
   const yearOnChange = (e) => {
-    setCardInfo((prevCardInfo) => {
-      return {
-        ...prevCardInfo,
-        yy: e.target.value,
-      };
+    const { value } = e.target;
+    const yy = value.replace(/\s|\D/g, '');
+
+    setCardInfo((prevState) => {
+      return { ...prevState, yy };
     });
   };
 
@@ -75,6 +92,7 @@ function Form({ cardInfo, setCardInfo }) {
     setErrCardNumber('');
     setErrCardDate('');
     setErrCvc('');
+
     setShowErrCardholderName(false);
     setShowErrCardNumber(false);
     setShowErrCardDate(false);
@@ -83,35 +101,63 @@ function Form({ cardInfo, setCardInfo }) {
     if (!cardInfo.cardholderName) {
       setErrCardholderName("Can't be blank");
       setShowErrCardholderName(true);
+      formValid = formValid && false;
     }
 
     if (!cardInfo.number) {
       setErrCardNumber("Can't be blank");
       setShowErrCardNumber(true);
+      formValid = formValid && false;
+    } else if (cardInfo.number.replace(/\s/g, '').length < 16) {
+      setErrCardNumber('Invalid number');
+      setShowErrCardNumber(true);
+      formValid = formValid && false;
+    } else if (cardInfo.number.replace(/\s/g, '').match(/\D/g) != null) {
+      setErrCardNumber('Wrong format, numbers only');
+      setShowErrCardNumber(true);
+      formValid = formValid && false;
     }
 
     if (!cardInfo.mm || !cardInfo.yy) {
       setErrCardDate("Can't be blank");
       setShowErrCardDate({
-        mm: !cardInfo.mm,
-        yy: !cardInfo.yy,
+        mm: cardInfo.mm == '',
+        yy: cardInfo.yy == '',
       });
+      formValid = formValid && false;
+    } else if (cardInfo.mm.length != 2 || cardInfo.yy.length != 2) {
+      setErrCardDate('Wrong format');
+      setShowErrCardDate({
+        mm: cardInfo.mm.length != 2,
+        yy: cardInfo.yy.length != 2,
+      });
+      formValid = formValid && false;
+    } else if (cardInfo.mm < 1 || cardInfo.mm > 12) {
+      setErrCardDate('Invalid month');
+      setShowErrCardDate((prevState) => {
+        return { ...prevState, mm: true };
+      });
+      formValid = formValid && false;
+    } else if (cardHasExpired(cardInfo.mm, cardInfo.yy)) {
+      setErrCardDate('Card has expired');
+      setShowErrCardDate({ mm: true, yy: true });
+      formValid = formValid && false;
     }
 
     if (!cardInfo.cvc) {
       setErrCvc("Can't be blank");
       setShowErrCvc(true);
+      formValid = formValid && false;
+    } else if (cardInfo.cvc.length < 3) {
+      setErrCvc('Invalid');
+      setShowErrCvc(true);
+      formValid = formValid && false;
     }
 
-    if (
-      showErrCardholderName ||
-      showErrCardNumber ||
-      showErrCardDate ||
-      showErrCvc
-    )
-      return;
+    if (!formValid) return;
 
-    console.log(cardInfo);
+    // setValidCard(true);
+    console.log('save');
   };
 
   return (
@@ -124,6 +170,7 @@ function Form({ cardInfo, setCardInfo }) {
           onChange={cardholderNameOnChange}
           className={showErrCardholderName ? 'danger' : ''}
           maxLength={30}
+          value={cardInfo.cardholderName}
         />
         <small>{showErrCardholderName && errCardholderName}</small>
       </div>
@@ -148,6 +195,7 @@ function Form({ cardInfo, setCardInfo }) {
               placeholder="MM"
               maxLength={2}
               onChange={monthOnChange}
+              value={cardInfo.mm}
             />
             <input
               type="text"
@@ -155,6 +203,7 @@ function Form({ cardInfo, setCardInfo }) {
               placeholder="YY"
               maxLength={2}
               onChange={yearOnChange}
+              value={cardInfo.yy}
             />
           </div>
           <small>{errCardDate}</small>
@@ -167,6 +216,7 @@ function Form({ cardInfo, setCardInfo }) {
             className={`cvc ${showErrCvc ? 'danger' : ''}`}
             maxLength={3}
             onChange={cvcOnChange}
+            value={cardInfo.cvc}
           />
           <small>{showErrCvc && errCvc}</small>
         </div>
