@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import './App.scss';
 import card_logo from './assets/card-logo.svg';
 import Form from './components/Form';
@@ -14,6 +14,18 @@ function App() {
   });
 
   const [validCard, setValidCard] = useState(false);
+
+  useEffect(() => {
+    if (!validCard) {
+      setCardInfo({
+        cardholderName: '',
+        number: '',
+        cvc: '',
+        mm: '',
+        yy: '',
+      });
+    }
+  }, [validCard]);
 
   return (
     <div className="wrapper">
@@ -46,7 +58,7 @@ function App() {
             setValidCard={setValidCard}
           />
         )) ||
-          (validCard && <Done />)}
+          (validCard && <Done setValidCard={setValidCard} />)}
       </div>
     </div>
   );
